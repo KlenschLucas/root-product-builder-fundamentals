@@ -3,29 +3,68 @@
 // This file automatically get's commented out by the CLI tool when being pushed to Root.
 // This ensures that it does not interfere with production execution.
 
+/**
+ * Check for a specific validation error in the Joi validation result
+ * @param {*} validationResult Result of the Joi validation
+ * @param {string} errorMessage string to check for in the validation error
+ */
+const expectJoiValidationError = (validationResult, errorMessage) => {
+  const hasError = validationResult.error.details.some(
+    (detail) => detail.message === errorMessage,
+  );
+  expect(
+    hasError,
+    `Expected Validation Error ${errorMessage} to be present`,
+  ).to.equal(true);
+};
+
 describe('Policy issue flow', function () {
   // Setup
   let quotePackage;
   let applicationPackage;
-  before(function () {
-    quotePackage = getQuote(quoteData);
-    applicationPackage = getApplication(
-      applicationData,
-      undefined,
-      // @ts-ignore
-      quotePackage,
-    );
-  });
 
   // Quote hook
   describe('Quote hook', function () {
-    it('valid data should pass validation', function () {
-      const validationResult = validateQuoteRequest(quoteData);
+    it('should not pass validation', function () {
+      const validationResult = validateQuoteRequest(quoteDataInvalid);
+
+      expect(validationResult.error).to.not.equal(null);
+      expect(validationResult.error)
+        .to.have.property('details')
+        .with.lengthOf(5, 'Expected number of Validation Errors');
+
+      expectJoiValidationError(
+        validationResult,
+        '"cover_amount" must be larger than or equal to 1000000',
+      );
+      expectJoiValidationError(
+        validationResult,
+        '"health_checks_updated" must be a boolean',
+      );
+      expectJoiValidationError(
+        validationResult,
+        '"species" must be one of [Tyrannosaurus Rex, Stegosaurus, Velociraptor, Diplodocus, Iguanodon]',
+      );
+    });
+
+    it('should pass validation', function () {
+      const validationResult = validateQuoteRequest(quoteDataValid);
       expect(validationResult.error).to.equal(null);
     });
 
-    it('should return a suggested premium of <R12.34> (in cents)', function () {
-      expect(quotePackage.suggested_premium).to.equal(7125); // cents
+    it('should return a suggested premium of <R1458.00> (in cents)', function () {
+      quotePackage = getQuote(quoteData0);
+      expect(quotePackage[0].suggested_premium).to.equal(145800);
+    });
+
+    it('should return a suggested premium of <R1368.00> (in cents)', function () {
+      quotePackage = getQuote(quoteData1);
+      expect(quotePackage[0].suggested_premium).to.equal(136800);
+    });
+
+    it('should return a suggested premium of <R1372.80> (in cents)', function () {
+      quotePackage = getQuote(quoteData2);
+      expect(quotePackage[0].suggested_premium).to.equal(137280);
     });
   });
 
