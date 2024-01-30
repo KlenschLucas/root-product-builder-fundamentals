@@ -8,11 +8,36 @@
  * @see {@link https://docs.rootplatform.com/docs/quote-hook Quote hook}
  */
 const validateQuoteRequest = (data) => {
+  const today = moment().startOf('day');
+  const minBirthDate = moment().subtract(50, 'years').startOf('day');
+  const maxCoverStartDate = moment().add(60, 'days').endOf('day');
+
   const validationResult = Joi.validate(
     data,
     Joi.object()
       .keys({
-        // keys and validation
+        type: Joi.string().required(),
+        start_date: Joi.date()
+          .min(today.toDate())
+          .max(maxCoverStartDate.toDate())
+          .required(),
+        cover_amount: Joi.number()
+          .integer()
+          .min(10000 * 100)
+          .max(100000 * 100)
+          .required(),
+        birth_date: Joi.date()
+          .min(minBirthDate.toDate())
+          .max(today.toDate())
+          .required(),
+        species: Joi.valid([
+          'Tyrannosaurus Rex',
+          'Stegosaurus',
+          'Velociraptor',
+          'Diplodocus',
+          'Iguanodon',
+        ]).required(),
+        health_checks_updated: Joi.boolean().required(),
       })
       .required(),
     { abortEarly: false },
