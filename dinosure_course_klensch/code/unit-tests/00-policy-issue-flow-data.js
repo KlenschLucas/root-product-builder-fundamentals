@@ -54,8 +54,6 @@ const quoteData2 = {
   health_checks_updated: true,
 };
 
-};
-
 // Example application data
 const applicationData = {
   // app-data
