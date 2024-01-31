@@ -19,7 +19,6 @@ const quoteDataInvalid = {
  * Valid Quote Data - boundary values
  */
 const quoteDataValid = {
-  type: 'dinosure_klensch_ext_dev',
   start_date: moment().add(60, 'days').toDate(),
   cover_amount: 10000 * 100,
   birth_date: moment().subtract(50, 'years').toDate(),
@@ -28,7 +27,6 @@ const quoteDataValid = {
 };
 
 const quoteData0 = {
-  type: 'dinosure_klensch_ext_dev',
   start_date: moment().add(1, 'days').toDate(),
   cover_amount: 90000 * 100,
   birth_date: moment().subtract(20, 'years').toDate(),
@@ -37,7 +35,6 @@ const quoteData0 = {
 };
 
 const quoteData1 = {
-  type: 'dinosure_klensch_ext_dev',
   start_date: moment().add(1, 'days').toDate(),
   cover_amount: 50000 * 100,
   birth_date: moment().subtract(36, 'years').toDate(),
@@ -46,7 +43,6 @@ const quoteData1 = {
 };
 
 const quoteData2 = {
-  type: 'dinosure_klensch_ext_dev',
   start_date: moment().add(1, 'days').toDate(),
   cover_amount: 65000 * 100,
   birth_date: moment().subtract(16, 'years').toDate(),

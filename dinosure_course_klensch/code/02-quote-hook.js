@@ -16,7 +16,6 @@ const validateQuoteRequest = (data) => {
     data,
     Joi.object()
       .keys({
-        type: Joi.string().required(),
         start_date: Joi.date()
           .min(today.toDate())
           .max(maxCoverStartDate.toDate())

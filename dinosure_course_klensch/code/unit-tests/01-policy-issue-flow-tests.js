@@ -31,7 +31,7 @@ describe('Policy issue flow', function () {
       expect(validationResult.error).to.not.equal(null);
       expect(validationResult.error)
         .to.have.property('details')
-        .with.lengthOf(5, 'Expected number of Validation Errors');
+        .with.lengthOf(4, 'Expected number of Validation Errors');
 
       expectJoiValidationError(
         validationResult,
