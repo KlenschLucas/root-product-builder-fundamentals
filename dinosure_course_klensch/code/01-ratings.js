@@ -50,13 +50,15 @@ const calculatePremium = (
   isHealthChecksUpdated,
 ) => {
   const corePremium = calculateCorePremium(birthDate, coverAmount);
-  const premium = calculateSpeciesAdjustment(species) * corePremium;
+  let premium = calculateSpeciesAdjustment(species) * corePremium;
 
   // if health checks are not updated, add R250
   if (!isHealthChecksUpdated) {
-    return premium + 250 * 100;
+    premium = premium + 250 * 100;
   }
-  return premium;
+
+  // ensure premium is an integer
+  return Math.floor(premium);
 };
 
 // Tables and ratings below
