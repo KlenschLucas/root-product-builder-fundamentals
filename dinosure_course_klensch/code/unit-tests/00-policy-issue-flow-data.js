@@ -50,7 +50,15 @@ const quoteData2 = {
   health_checks_updated: true,
 };
 
-// Example application data
-const applicationData = {
-  // app-data
+const applicationDataInvalid = {
+  dinosaur_name:
+    '012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789 Dinosaur Name is too long',
+  dinosaur_colour: 'Blue',
+  ndrn: '99999999',
+};
+
+const applicationData0 = {
+  dinosaur_name: 'James the Dinosaur',
+  dinosaur_colour: 'Lilac',
+  ndrn: '999999',
 };
