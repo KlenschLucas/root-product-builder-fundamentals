@@ -4,7 +4,7 @@
 // This ensures that it does not interfere with production execution.
 
 describe('Amendment alteration hook', function () {
-  const alterationHookKey = '<ALTERATION HOOK KEY>';
+  const alterationHookKey = 'update-cover';
 
   it('valid data should pass validation', function () {
     const validationResult = validateAlterationPackageRequest({
@@ -16,26 +16,50 @@ describe('Amendment alteration hook', function () {
     expect(validationResult.error).to.equal(null);
   });
 
-  it('invalid pet name should generate validation error', function () {
+  it('invalid cover_amount should generate validation error', function () {
     const validationResult = validateAlterationPackageRequest({
       alteration_hook_key: alterationHookKey,
       data: invalidAlterationData,
       policy: undefined,
       policyholder: undefined,
     });
-    expect(validationResult.error.message).to.equal(
-      `<COPY JOI ERROR MESSAGE HERE>`,
+    expectJoiValidationError(
+      validationResult,
+      '"cover_amount" must be larger than or equal to 1000000',
     );
   });
 
-  it('should update the <PROPERTY> to "<PROPERTY>"', function () {
+  it('should update the monthly_premium to "R1215.00" in cents', function () {
     const alterationPackage = getAlteration({
       alteration_hook_key: alterationHookKey,
       data: validAlterationData,
       // @ts-ignore
-      policy: examplePolicy,
+      policy: policy0,
       policyholder: undefined,
     });
-    expect(alterationPackage.module.SOME_PROPERTY).to.equal('<SOME PROPERTY>');
+    expect(alterationPackage.monthly_premium).to.equal(1215 * 100);
+    expect(alterationPackage.sum_assured).to.equal(
+      validAlterationData.cover_amount,
+    );
+    expect(alterationPackage.module.cover_amount).to.equal(
+      validAlterationData.cover_amount,
+    );
+  });
+
+  it('should update the monthly_premium to "R2052.00" in cents', function () {
+    const alterationPackage = getAlteration({
+      alteration_hook_key: alterationHookKey,
+      data: validAlterationData,
+      // @ts-ignore
+      policy: policy1,
+      policyholder: undefined,
+    });
+    expect(alterationPackage.monthly_premium).to.equal(2052 * 100);
+    expect(alterationPackage.sum_assured).to.equal(
+      validAlterationData.cover_amount,
+    );
+    expect(alterationPackage.module.cover_amount).to.equal(
+      validAlterationData.cover_amount,
+    );
   });
 });
