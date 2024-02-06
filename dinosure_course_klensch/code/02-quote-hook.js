@@ -8,11 +8,35 @@
  * @see {@link https://docs.rootplatform.com/docs/quote-hook Quote hook}
  */
 const validateQuoteRequest = (data) => {
+  const today = moment().startOf('day');
+  const minBirthDate = moment().subtract(50, 'years').startOf('day');
+  const maxCoverStartDate = moment().add(60, 'days').endOf('day');
+
   const validationResult = Joi.validate(
     data,
     Joi.object()
       .keys({
-        // keys and validation
+        start_date: Joi.date()
+          .min(today.toDate())
+          .max(maxCoverStartDate.toDate())
+          .required(),
+        cover_amount: Joi.number()
+          .integer()
+          .min(10000 * 100)
+          .max(100000 * 100)
+          .required(),
+        birth_date: Joi.date()
+          .min(minBirthDate.toDate())
+          .max(today.toDate())
+          .required(),
+        species: Joi.valid([
+          'Tyrannosaurus Rex',
+          'Stegosaurus',
+          'Velociraptor',
+          'Diplodocus',
+          'Iguanodon',
+        ]).required(),
+        health_checks_updated: Joi.boolean().required(),
       })
       .required(),
     { abortEarly: false },
@@ -28,12 +52,15 @@ const validateQuoteRequest = (data) => {
  * @see {@link https://docs.rootplatform.com/docs/quote-hook Quote hook}
  */
 const getQuote = (data) => {
+  const { birth_date, cover_amount, species, health_checks_updated } = data;
+  const premium = calculatePremium(birth_date, cover_amount, species, health_checks_updated);
+
   const quotePackage = new QuotePackage({
     // Below are standard fields for all products
-    package_name: '<PACKAGE NAME>', // The name of the "package" of cover
-    sum_assured: 10000 * 100, // Set the total, aggregated cover amount
-    base_premium: 100 * 100, // Should be an integer, cents
-    suggested_premium: 100 * 100, // Should be an integer, cents
+    package_name: 'DinoSure', // The name of the "package" of cover
+    sum_assured: cover_amount, // Set the total, aggregated cover amount
+    base_premium: premium, // Should be an integer, cents
+    suggested_premium: premium, // Should be an integer, cents
     billing_frequency: 'monthly', // Can be monthly or yearly
     module: {
       // Save any data, calculations, or results here for future re-use.
