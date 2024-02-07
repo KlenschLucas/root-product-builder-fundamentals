@@ -16,6 +16,14 @@ const validateApplicationRequest = (data, policyholder, quote_package) => {
     Joi.object()
       .keys({
         // keys and validation
+        dinosaur_name: Joi.string().max(100).required(),
+        dinosaur_colour: Joi.valid([
+          'Lilac',
+          'Sea green',
+          'Granite grey',
+          'Midnight blue',
+        ]).required(),
+        ndrn: Joi.number().integer().min(100000).max(999999).required(),
       })
       .required(),
     { abortEarly: false },
