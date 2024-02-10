@@ -5,7 +5,7 @@
 
 describe('Amendment alteration hook', function () {
   describe('Update cover amount alterations', () => {
-    const alterationHookKey = 'update-cover';
+    const alterationHookKey = 'update_cover';
 
     it('should pass validation', function () {
       const validationResult = validateAlterationPackageRequest({
