@@ -4,13 +4,47 @@
 // This ensures that it does not interfere with production execution.
 
 const validAlterationData = {
-  // valid data for alteration
+  cover_amount: 75000 * 100,
 };
 
 const invalidAlterationData = {
-  // invalid data for alteration
+  cover_amount: 0,
 };
 
-const examplePolicy = {
-  // copy policy object here
+const policy0 = {
+  package_name: 'DinoSure',
+  sum_assured: 9000000,
+  base_premium: 145800,
+  monthly_premium: 145800,
+  start_date: moment(),
+  end_date: null,
+  module: {
+    start_date: moment().toDate(),
+    cover_amount: 9000000,
+    birth_date: moment().subtract(20, 'years').toDate(),
+    species: 'Tyrannosaurus Rex',
+    health_checks_updated: true,
+    dinosaur_name: 'James the Dinosaur',
+    dinosaur_colour: 'Lilac',
+    ndrn: '999999',
+  },
+};
+
+const policy1 = {
+  package_name: 'DinoSure',
+  sum_assured: 5000000,
+  base_premium: 145800,
+  monthly_premium: 145800,
+  start_date: moment(),
+  end_date: null,
+  module: {
+    start_date: moment().toDate(),
+    cover_amount: 5000000,
+    birth_date: moment().subtract(36, 'years').toDate(),
+    species: 'Velociraptor',
+    health_checks_updated: true,
+    dinosaur_name: 'Jake the Dino',
+    dinosaur_colour: 'Lilac',
+    ndrn: '199459',
+  },
 };

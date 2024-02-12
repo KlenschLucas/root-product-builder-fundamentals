@@ -56,7 +56,6 @@
     "props": {
       "decimal": false
     },
-    "outputPath": "ndrn",
     "validators": [
       {
         "validation": {

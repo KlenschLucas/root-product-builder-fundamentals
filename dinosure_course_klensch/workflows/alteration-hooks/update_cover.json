@@ -1,0 +1,29 @@
+[
+  {
+    "key": "cover_amount",
+    "type": "currency",
+    "label": "Cover Amount",
+    "props": {
+      "prefix": "ZAR"
+    },
+    "validators": [
+      {
+        "validation": {
+          "type": "required"
+        }
+      },
+      {
+        "validation": {
+          "type": "greaterThanCurrency",
+          "min": 1000000
+        }
+      },
+      {
+        "validation": {
+          "type": "lessThanCurrency",
+          "max": 10000000
+        }
+      }
+    ]
+  }
+]

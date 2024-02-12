@@ -96,7 +96,7 @@ describe('Policy issue flow', function () {
       );
     });
 
-    it('should pass application data validation ', () => {
+    it('should pass data validation ', () => {
       const validationResult = validateApplicationRequest(
         applicationData0,
         undefined,

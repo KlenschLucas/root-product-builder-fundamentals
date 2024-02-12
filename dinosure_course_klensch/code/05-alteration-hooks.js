@@ -19,12 +19,15 @@ const validateAlterationPackageRequest = ({
 }) => {
   let validationResult;
   switch (alteration_hook_key) {
-    case 'KEY':
+    case 'update_cover':
       validationResult = Joi.validate(
         data,
         Joi.object()
           .keys({
-            // keys and validation
+            cover_amount: Joi.number()
+              .integer()
+              .min(10000 * 100)
+              .max(100000 * 100),
           })
           .required(),
         { abortEarly: false },
@@ -50,18 +53,29 @@ const validateAlterationPackageRequest = ({
 const getAlteration = ({ alteration_hook_key, data, policy, policyholder }) => {
   let alterationPackage;
   switch (alteration_hook_key) {
-    case 'KEY':
+    case 'update_cover': {
+      const { cover_amount } = data;
+      const { birth_date, species, health_checks_updated } = policy.module;
+
+      const newPremium = calculatePremium(
+        birth_date,
+        cover_amount,
+        species,
+        health_checks_updated,
+      );
+
       alterationPackage = new AlterationPackage({
         input_data: data,
-        sum_assured: policy.sum_assured,
-        monthly_premium: policy.monthly_premium,
-        change_description: 'DESCRIPTION OF ALTERATION',
+        sum_assured: cover_amount,
+        monthly_premium: newPremium,
+        change_description: 'Alteration - Update Cover Amount',
         module: {
           ...policy.module,
           ...data,
         },
       });
       return alterationPackage;
+    }
     default:
       throw new Error(`Invalid alteration hook key "${alteration_hook_key}"`);
   }
@@ -87,12 +101,12 @@ const applyAlteration = ({
 }) => {
   let alteredPolicy;
   switch (alteration_hook_key) {
-    case 'KEY':
+    case 'update_cover':
       alteredPolicy = new AlteredPolicy({
         package_name: policy.package_name,
-        sum_assured: policy.sum_assured,
-        base_premium: policy.monthly_premium,
-        monthly_premium: policy.monthly_premium,
+        sum_assured: alteration_package.sum_assured,
+        base_premium: alteration_package.monthly_premium,
+        monthly_premium: alteration_package.monthly_premium,
         module: alteration_package.module,
         end_date: policy.end_date,
         start_date: policy.start_date,
