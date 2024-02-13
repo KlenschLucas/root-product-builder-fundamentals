@@ -20,7 +20,7 @@
     "policySchemeType": "individual",
     "dashboardIssuingEnabled": true,
     "activatePoliciesOnEvent": "policy_issued",
-    "canReactivatePolicies": false,
+    "canReactivatePolicies": true,
     "notTakenUpEnabled": false,
     "welcomeLetterEnabled": true,
     "policyDocuments": [
