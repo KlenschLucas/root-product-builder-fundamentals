@@ -1,3 +1,15 @@
+const applicationSchema = Joi.object().keys({
+  // keys and validation
+  dinosaur_name: Joi.string().max(100).required(),
+  dinosaur_colour: Joi.valid([
+    'Lilac',
+    'Sea green',
+    'Granite grey',
+    'Midnight blue',
+  ]).required(),
+  ndrn: Joi.number().integer().min(100000).max(999999).required(),
+});
+
 /**
  * Validates the application request data.
  * @param {Record<string, any>} data The data received in the body of the
@@ -11,23 +23,9 @@
  */
 const validateApplicationRequest = (data, policyholder, quote_package) => {
   // Custom validation can be specified in the function body
-  const validationResult = Joi.validate(
-    data,
-    Joi.object()
-      .keys({
-        // keys and validation
-        dinosaur_name: Joi.string().max(100).required(),
-        dinosaur_colour: Joi.valid([
-          'Lilac',
-          'Sea green',
-          'Granite grey',
-          'Midnight blue',
-        ]).required(),
-        ndrn: Joi.number().integer().min(100000).max(999999).required(),
-      })
-      .required(),
-    { abortEarly: false },
-  );
+  const validationResult = Joi.validate(data, applicationSchema.required(), {
+    abortEarly: false,
+  });
   return validationResult;
 };
 
