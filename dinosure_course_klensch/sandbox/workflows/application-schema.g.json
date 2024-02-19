@@ -1,0 +1,77 @@
+[
+  {
+    "key": "dinosaur_name",
+    "type": "text",
+    "label": "Dinosaur name",
+    "validators": [
+      {
+        "validation": {
+          "type": "lessThanLength",
+          "max": 100
+        }
+      },
+      {
+        "validation": {
+          "type": "required"
+        }
+      }
+    ],
+    "outputPath": "dinosaur_name"
+  },
+  {
+    "key": "dinosaur_colour",
+    "type": "select",
+    "label": "Dinosaur colour",
+    "validators": [
+      {
+        "validation": {
+          "type": "required"
+        }
+      }
+    ],
+    "outputPath": "dinosaur_colour",
+    "options": [
+      {
+        "label": "Lilac",
+        "value": "Lilac"
+      },
+      {
+        "label": "Sea Green",
+        "value": "Sea green"
+      },
+      {
+        "label": "Granite Grey",
+        "value": "Granite grey"
+      },
+      {
+        "label": "Midnight Blue",
+        "value": "Midnight blue"
+      }
+    ]
+  },
+  {
+    "key": "ndrn",
+    "type": "number",
+    "label": "Ndrn",
+    "validators": [
+      {
+        "validation": {
+          "type": "greaterThanNumber",
+          "min": 100000
+        }
+      },
+      {
+        "validation": {
+          "type": "lessThanNumber",
+          "max": 999999
+        }
+      },
+      {
+        "validation": {
+          "type": "required"
+        }
+      }
+    ],
+    "outputPath": "ndrn"
+  }
+]

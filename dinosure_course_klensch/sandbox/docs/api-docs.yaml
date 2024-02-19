@@ -2,20 +2,22 @@
   title: '[Add Title]'
   hideInSidebar: true
   copyComponents:
-    - id: dinosure_course_klensch
-      type: list
-      title: '[Add Title]'
-      content:
-        - label: start_date
-          markdownDescription: _date_. [Add Description]
-        - label: cover_amount
-          markdownDescription: _number_. [Add Description]
-        - label: birth_date
-          markdownDescription: _date_. [Add Description]
-        - label: species
-          markdownDescription: _any_. [Add Description]
-        - label: health_checks_updated
-          markdownDescription: _boolean_. [Add Description]
+    id: dinosure_course_klensch
+    type: list
+    title: '[Add Title]'
+    content:
+      - type: markdown
+        content: '[Add Description]'
+      - label: start_date
+        markdownDescription: _date_. [Add Description]
+      - label: cover_amount
+        markdownDescription: _number_. [Add Description]
+      - label: birth_date
+        markdownDescription: _date_. [Add Description]
+      - label: species
+        markdownDescription: _any_. [Add Description]
+      - label: health_checks_updated
+        markdownDescription: _boolean_. [Add Description]
   exampleComponents:
     - id: '[Add ID]-quote-endpoint'
       type: code
@@ -55,16 +57,18 @@
   title: '[Add Title]'
   hideInSidebar: true
   copyComponents:
-    - id: dinosure_course_klensch
-      type: list
-      title: '[Add Title]'
-      content:
-        - label: dinosaur_name
-          markdownDescription: _string_. [Add Description]
-        - label: dinosaur_colour
-          markdownDescription: _any_. [Add Description]
-        - label: ndrn
-          markdownDescription: _number_. [Add Description]
+    id: dinosure_course_klensch
+    type: list
+    title: '[Add Title]'
+    content:
+      - type: markdown
+        content: '[Add Description]'
+      - label: dinosaur_name
+        markdownDescription: _string_. [Add Description]
+      - label: dinosaur_colour
+        markdownDescription: _any_. [Add Description]
+      - label: ndrn
+        markdownDescription: _number_. [Add Description]
   exampleComponents:
     - id: '[Add ID]-application-endpoint'
       type: code
