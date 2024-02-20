@@ -1,3 +1,10 @@
+const updateCoverSchema = Joi.object().keys({
+  cover_amount: Joi.number()
+    .integer()
+    .min(10000 * 100)
+    .max(100000 * 100),
+});
+
 /**
  * Validates the alteration package request data.
  * @param {object} params
@@ -20,18 +27,9 @@ const validateAlterationPackageRequest = ({
   let validationResult;
   switch (alteration_hook_key) {
     case 'update_cover':
-      validationResult = Joi.validate(
-        data,
-        Joi.object()
-          .keys({
-            cover_amount: Joi.number()
-              .integer()
-              .min(10000 * 100)
-              .max(100000 * 100),
-          })
-          .required(),
-        { abortEarly: false },
-      );
+      validationResult = Joi.validate(data, updateCoverSchema.required(), {
+        abortEarly: false,
+      });
       return validationResult;
     default:
       throw new Error(`Invalid alteration hook key "${alteration_hook_key}"`);

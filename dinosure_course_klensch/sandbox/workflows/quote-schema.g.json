@@ -1,0 +1,101 @@
+[
+  {
+    "key": "start_date",
+    "type": "date-picker",
+    "label": "Start date",
+    "validators": [
+      {
+        "validation": {
+          "type": "required"
+        }
+      }
+    ],
+    "outputPath": "start_date"
+  },
+  {
+    "key": "cover_amount",
+    "type": "number",
+    "label": "Cover amount",
+    "validators": [
+      {
+        "validation": {
+          "type": "greaterThanNumber",
+          "min": 1000000
+        }
+      },
+      {
+        "validation": {
+          "type": "lessThanNumber",
+          "max": 10000000
+        }
+      },
+      {
+        "validation": {
+          "type": "required"
+        }
+      }
+    ],
+    "outputPath": "cover_amount"
+  },
+  {
+    "key": "birth_date",
+    "type": "date-picker",
+    "label": "Birth date",
+    "validators": [
+      {
+        "validation": {
+          "type": "required"
+        }
+      }
+    ],
+    "outputPath": "birth_date"
+  },
+  {
+    "key": "species",
+    "type": "select",
+    "label": "Species",
+    "validators": [
+      {
+        "validation": {
+          "type": "required"
+        }
+      }
+    ],
+    "outputPath": "species",
+    "options": [
+      {
+        "label": "Tyrannosaurus Rex",
+        "value": "Tyrannosaurus Rex"
+      },
+      {
+        "label": "Stegosaurus",
+        "value": "Stegosaurus"
+      },
+      {
+        "label": "Velociraptor",
+        "value": "Velociraptor"
+      },
+      {
+        "label": "Diplodocus",
+        "value": "Diplodocus"
+      },
+      {
+        "label": "Iguanodon",
+        "value": "Iguanodon"
+      }
+    ]
+  },
+  {
+    "key": "health_checks_updated",
+    "type": "checkbox",
+    "label": "Health checks updated",
+    "validators": [
+      {
+        "validation": {
+          "type": "required"
+        }
+      }
+    ],
+    "outputPath": "health_checks_updated"
+  }
+]
