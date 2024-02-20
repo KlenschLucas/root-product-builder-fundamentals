@@ -189,7 +189,8 @@
       "description": "Payout for the injured or deceased dinosaur",
       "amount": "{{claim.policy.sum_assured}}",
       "payee": {
-        "type": "{{ policyholder }}",
+        "type": "policyholder",
+        "policyholder_id": "{{claim.policy.policyholder_id}}",
         "amount": "{{claim.policy.sum_assured}}",
         "percentage": 100,
         "payment_details": {
@@ -203,6 +204,6 @@
         }
       }
     },
-    "disabled_if": "{{ifCondition (ifCondition claim.approval_status '===' 'approved') '||' (ifCondition claim.approval_status '===' 'goodwill') }}"
+    "disabled_if": "{{ifCondition (ifCondition claim.approval_status '!==' 'approved') '&&' (ifCondition claim.approval_status '!==' 'goodwill') }}"
   }
 ]
